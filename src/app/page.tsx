@@ -1,12 +1,38 @@
 "use client";
 
+import { nanoid } from "nanoid";
 import Image from "next/image";
-import { useState } from "react";
+import { use, useEffect, useState } from "react";
+
+const ANIMALS = ["wolf", "hawk", "bear", "shark"]
+const STORAGE_KEY = "chat_username"
+
+const generateUsername = () => {
+  const word = ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
+  return `anonymous-${word}-${nanoid(8)}`
+}
+
 
 
 export default function Home() {
+const [username, setUsername] = useState("")
 
-  const [username, setUsername] = useState("");
+useEffect(() => {
+  const main = () => {
+    const stored = localStorage.getItem(STORAGE_KEY)
+
+    if (stored) {
+        setUsername(stored)
+        return
+      }
+
+    const generated = generateUsername()
+      localStorage.setItem(STORAGE_KEY, generated)
+      setUsername(generated)
+    }
+
+    main()
+}, [])
 
   return <main className="flex min-h-screen flex-col items-center justify-center p-4">
     <div className="w-full max-w-md space-y-8">
