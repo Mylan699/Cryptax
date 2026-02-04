@@ -43,7 +43,7 @@ const {mutate: createRoom} = useMutation({
     const res = await client.room.create.post()
 
     if(res.status === 200) {
-      router.push('/room/${res.data?.roomId}')
+      router.push(`/room/${res.data?.roomId}`)
   }
 }
 })
