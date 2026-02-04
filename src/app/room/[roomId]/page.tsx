@@ -65,8 +65,11 @@ const Page = () => {
             <div className="flex gap-4">
                 <div className="flex-1 relative group">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-green-500 animated-pulse">{">"}</span>
-                    <input type="text" className="w-full bg-black border border-zinc-700 rounded px-4 py-2 pl-8 text-zinc-200 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Écrire un message..." />
+                    <input autoFocus type="text" className="w-full bg-black border border-zinc-800 focus:outline-none transition-colors text-zinc-100 placeholder:text-zinc-700 py-3 pl-8 pr-4 text-sm" placeholder="Écrire un message..." />
                 </div>
+                <button  className="bg-zinc-800 text-zinc-400 px-6 text-sm font-bold hover:text-zinc-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                    Envoyer
+                </button>
             </div>
         </div>
     </main> 
