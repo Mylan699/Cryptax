@@ -48,8 +48,7 @@ const Page = () => {
                     <span className={`text-sm font-bold flex items-center gap-2 ${timeRemaining !== null && timeRemaining < 60 ? "text-red-500" : "text-amber-500"}`}>
                         {timeRemaining !== null ? formatTimeRemaining(timeRemaining) : "--:--"}
                     </span>
-                </div>
-                
+                </div>                
 
                 <button
                     className="text-xs bg-zinc-800 hover:bg-red-600 px-3 py-1.5 rounded text-zinc-400 hover:text-white font-bold transition-all group flex items-center gap-2 disabled:opacity-50"
@@ -59,7 +58,18 @@ const Page = () => {
                 </button>
             </div>
         </header>
-    </main>
+
+        <div className="flex-1 overflow-y-auto p-4 space-y-4 scrollbar-thin"> </div>
+
+        <div className="p-4 border-t border-zinc-800 bg-zinc-900/30">
+            <div className="flex gap-4">
+                <div className="flex-1 relative group">
+                    <span className="absolute left-4 top-1/2 -translate-y-1/2 text-green-500 animated-pulse">{">"}</span>
+                    <input type="text" className="w-full bg-black border border-zinc-700 rounded px-4 py-2 pl-8 text-zinc-200 focus:outline-none focus:ring-2 focus:ring-green-500" placeholder="Écrire un message..." />
+                </div>
+            </div>
+        </div>
+    </main> 
 }
 
 export default Page
