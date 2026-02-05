@@ -4,6 +4,7 @@ import { time } from "console"
 import { Span } from "next/dist/trace"
 import { useParams } from "next/navigation"
 import { useState } from "react"
+import { useRef } from "react"
 
 function formatTimeRemaining(seconds: number) {
     const mins = Math.floor(seconds / 60)
@@ -14,6 +15,9 @@ function formatTimeRemaining(seconds: number) {
 const Page = () => {
     const params = useParams()
     const roomId = params.roomId as string
+
+    const [input, setInput] = useState("")
+    const inputRef = useRef<HTMLInputElement>(null)
 
     const [copyStatus, setCopyStatus] = useState("Copier")
     const [timeRemaining, setTimeRemaining] =
@@ -48,7 +52,7 @@ const Page = () => {
                     <span className={`text-sm font-bold flex items-center gap-2 ${timeRemaining !== null && timeRemaining < 60 ? "text-red-500" : "text-amber-500"}`}>
                         {timeRemaining !== null ? formatTimeRemaining(timeRemaining) : "--:--"}
                     </span>
-                </div>                
+                </div>
 
                 <button
                     className="text-xs bg-zinc-800 hover:bg-red-600 px-3 py-1.5 rounded text-zinc-400 hover:text-white font-bold transition-all group flex items-center gap-2 disabled:opacity-50"
@@ -65,14 +69,28 @@ const Page = () => {
             <div className="flex gap-4">
                 <div className="flex-1 relative group">
                     <span className="absolute left-4 top-1/2 -translate-y-1/2 text-green-500 animated-pulse">{">"}</span>
-                    <input autoFocus type="text" className="w-full bg-black border border-zinc-800 focus:outline-none transition-colors text-zinc-100 placeholder:text-zinc-700 py-3 pl-8 pr-4 text-sm" placeholder="Écrire un message..." />
+                    <input 
+                    autoFocus 
+                    type="text" 
+                    value={input} 
+                    onKeyDown={(e) => {
+                        if(e.key === "Entrer" && input.trim()) {
+                            //TODO: ENVOYER MESSAGE
+                            inputRef.current?.focus()
+                        }
+                    }}
+                    placeholder="Écrire un message..."
+                    onChange={(e) => setInput(e.target.value)} 
+                    className="w-full bg-black border border-zinc-800 focus:outline-none transition-colors text-zinc-100 placeholder:text-zinc-700 py-3 pl-8 pr-4 text-sm" />
                 </div>
-                <button  className="bg-zinc-800 text-zinc-400 px-6 text-sm font-bold hover:text-zinc-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
+                <button className="bg-zinc-800 text-zinc-400 px-6 text-sm font-bold hover:text-zinc-200 transition-all disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
                     Envoyer
                 </button>
+
             </div>
         </div>
-    </main> 
+
+    </main>
 }
 
 export default Page
